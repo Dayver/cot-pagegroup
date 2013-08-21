@@ -35,11 +35,4 @@ if (empty($sql_page_string) && $pag_grp_need_grouped && isset($cot_extrafields[$
 		$where
 		GROUP BY page_".$cfg['plugin']['pagegroup']['extrfldnamegroup']."
 		ORDER BY $orderby LIMIT $d, ".$cfg['page']['maxrowsperpage'];
-
-	/*$sql_page_string = "SELECT p.*, COUNT(p.page_id) AS page_in_group_count, SUBSTRING_INDEX(p.page_".$cfg['plugin']['pagegroup']['extrfldnamegroup'].", '.', 1) AS page_group_main_pag_id, u.* $join_columns
-		FROM $db_pages as p $join_condition
-		LEFT JOIN $db_users AS u ON u.user_id=p.page_ownerid
-		$where AND page_id = page_group_main_pag_id
-		GROUP BY page_".$cfg['plugin']['pagegroup']['extrfldnamegroup']." HAVING page_id = page_group_main_pag_id
-		ORDER BY $orderby LIMIT $d, ".$cfg['page']['maxrowsperpage'];*/
 }

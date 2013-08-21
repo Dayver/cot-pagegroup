@@ -20,7 +20,6 @@ if (!$pag_grp_marker)
 				{
 					$pag_grp_marker = $page_data['page_id'];
 					$pag_grp_t->assign('PAGE_GROUP_MAIN_PAGE_ID', $k);
-					//$pag_grp_t->assign('PAGE_GROUP_MAIN_PAGE_FIELD', $pag_grp_feild);
 					$pag_grp_t->assign('PAGE_GROUP_THIS_MAIN_PAGE', $page_data['page_id'] == $pag_grp_data['page_id'] ? true : false);
 					$pag_grp_t->assign('PAGE_GROUP_CONTAINER_ID', $pag_grp_data['page_pag_grp_container_id']);
 					$pag_grp_t->assign('PAGE_GROUP_FIELD', $pag_grp_feild);
