@@ -2,6 +2,7 @@
 /* ====================
 [BEGIN_COT_EXT]
 Hooks=page.list.query
+Order=1000
 [END_COT_EXT]
 ==================== */
 defined('COT_CODE') or die('Wrong URL');
@@ -11,19 +12,25 @@ if (!empty($cfg['plugin']['pagegroup']['category']))
 {
 	$pag_grp_cats = explode(',', $cfg['plugin']['pagegroup']['category']);
 	foreach ($pag_grp_cats as $pag_grp_cat)
-	{		if (!empty($pag_grp_cat))
-		{			if ($pag_grp_cat == $c)
+	{
+		if (!empty($pag_grp_cat))
+		{
+			if ($pag_grp_cat == $c)
 			{
 				$pag_grp_need_grouped = true;
 				break;
-			}			$pag_grp_catsub = cot_structure_children('page', $pag_grp_cat);			if (in_array($c, $pag_grp_catsub))
-			{				$pag_grp_need_grouped = true;
+			}
+			$pag_grp_catsub = cot_structure_children('page', $pag_grp_cat);
+			if (in_array($c, $pag_grp_catsub))
+			{
+				$pag_grp_need_grouped = true;
 				break;
 			}
 		}
 	}
 }
-else $pag_grp_need_grouped = true;
+else $pag_grp_need_grouped = true;
+
 if (empty($sql_page_string) && $pag_grp_need_grouped && isset($cot_extrafields[$db_pages][$cfg['plugin']['pagegroup']['extrfldnamegroup']]))
 {
 	$where = array_filter($where);
