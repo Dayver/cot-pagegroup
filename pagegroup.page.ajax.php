@@ -10,28 +10,41 @@ cot_sendheaders();
 require_once cot_incfile('page', 'module');
 $a = cot_import('a', 'G', 'ALP');
 if ($a == 'addextfield' && $usr['isadmin'])
-{	$name = cot_import('name', 'G', 'ALP');
+{
+	$name = cot_import('name', 'G', 'ALP');
 	if (!empty($name))
-	{		if (isset($cot_extrafields[$db_pages][$name]))
-		{			echo $L['adm_pag_grp_extr_field_ok'];
-			$sql_page = $db->query('UPDATE '.$db_pages.' SET page_'.$db->prep($name).' = page_id WHERE page_'.$db->prep($name).' = "" OR INSTR(page_'.$db->prep($name).', ".") = 0');
-			if ($sql_page) echo $L['adm_pag_grp_extr_field_upd_ok'];		}
+	{
+		if (isset($cot_extrafields[$db_pages][$name]))
+		{
+			echo $L['adm_pag_grp_extr_field_ok'];
+			$sql_page = $db->query('UPDATE '.$db_pages.' SET page_'.$db->prep($name).' = page_id WHERE page_'.$db->prep($name).' IS NULL OR page_'.$db->prep($name).' = "" OR INSTR(page_'.$db->prep($name).', ".") = 0');
+			if ($sql_page) echo $L['adm_pag_grp_extr_field_upd_ok'];
+			else echo 'Error';
+		}
 		else
-		{			if(cot_extrafield_add($db_pages, $name, 'select', '', ',massa', '', false, 'HTML', 'Группировка id.field', ''))
-			{				echo sprintf($L['adm_pag_grp_extr_field_added'], $name);
-				$sql_page = $db->query('UPDATE '.$db_pages.' SET page_'.$db->prep($name).' = page_id WHERE page_'.$db->prep($name).' = "" OR INSTR(page_'.$db->prep($name).', ".") = 0');
+		{
+			if(cot_extrafield_add($db_pages, $name, 'select', '', ',massa', '', false, 'HTML', 'Группировка id.field', ''))
+			{
+				echo sprintf($L['adm_pag_grp_extr_field_added'], $name);
+				$sql_page = $db->query('UPDATE '.$db_pages.' SET page_'.$db->prep($name).' = page_id WHERE page_'.$db->prep($name).' IS NULL OR page_'.$db->prep($name).' = "" OR INSTR(page_'.$db->prep($name).', ".") = 0');
 				if ($sql_page) echo $L['adm_pag_grp_extr_field_upd_ok'];
+				else echo 'Error';
 			}
-			else echo $L['adm_pag_grp_extr_field_error'];		}	}
+			else echo $L['adm_pag_grp_extr_field_error'];
+		}
+	}
 	else
-	{		echo $L['adm_pag_grp_extr_field_empty'];	}
+	{
+		echo $L['adm_pag_grp_extr_field_empty'];
+	}
 }
 else
 {
 	$id = cot_import('id', 'G', 'INT');
 	$container_id = cot_import('container_id', 'G', 'INT');
 	if ($id > 0 && $container_id > 0)
-	{		$sql_str = "SELECT p.*, SUBSTRING_INDEX(p.page_".$cfg['plugin']['pagegroup']['extrfldnamegroup'].", '.', 1) AS page_group_main_pag_id, u.* $join_columns
+	{
+		$sql_str = "SELECT p.*, SUBSTRING_INDEX(p.page_".$cfg['plugin']['pagegroup']['extrfldnamegroup'].", '.', 1) AS page_group_main_pag_id, u.* $join_columns
 			FROM $db_pages AS p $join_condition
 			LEFT JOIN $db_users AS u ON u.user_id=p.page_ownerid
 			WHERE page_id=".$id." LIMIT 1";
@@ -65,7 +78,8 @@ else
 			}
 		}
 		if ($pag_grp_sql_id_list)
-		{			$sql_pag_grp =
+		{
+			$sql_pag_grp =
 			"SELECT p.*, SUBSTRING_INDEX(p.page_".$cfg['plugin']['pagegroup']['extrfldnamegroup'].", '.', 1) AS page_group_main_pag_id, CONCAT('page_', SUBSTRING_INDEX( p.page_group_id,  '.', -1 ) ) AS page_group_field_order, u.*
 			FROM $db_pages as p
 			LEFT JOIN $db_users AS u ON u.user_id=p.page_ownerid
