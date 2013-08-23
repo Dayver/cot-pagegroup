@@ -40,6 +40,7 @@ if ($a == 'addextfield' && $usr['isadmin'])
 }
 else
 {
+	if (cot_plugin_active('comments')) require_once cot_incfile('comments', 'plug');
 	$id = cot_import('id', 'G', 'INT');
 	$container_id = cot_import('container_id', 'G', 'INT');
 	if ($id > 0 && $container_id > 0)
