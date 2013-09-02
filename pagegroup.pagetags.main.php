@@ -12,9 +12,12 @@ if (!$pag_grp_marker)
 	$temp_array['PAGE_IN_GROUP_COUNT'] = $page_data['page_in_group_count'] ? $page_data['page_in_group_count'] : '';
 	global $pag_grp_rowset, $pag_grp_sql_field_list;
 	if (!empty($pag_grp_rowset))
-	{		foreach ($pag_grp_rowset as $k => $v)
-		{			if ($k == $page_data['page_id'] || isset($v[$page_data['page_id']]))
-			{				$pag_grp_feild = $pag_grp_sql_field_list[$k];
+	{
+		foreach ($pag_grp_rowset as $k => $v)
+		{
+			if ($k == $page_data['page_id'] || isset($v[$page_data['page_id']]))
+			{
+				$pag_grp_feild = $pag_grp_sql_field_list[$k];
 				$pag_grp_t = new XTemplate(cot_tplfile('pagegroup.listrow.rotator', 'plug'));
 				foreach ($v as $pag_grp_data)
 				{
@@ -29,9 +32,13 @@ if (!$pag_grp_marker)
 				}
 				$pag_grp_t->assign('PAGE_GROUP_MAIN_PAGE_ID', $page_data['page_group_main_pag_id']);
 				$pag_grp_t->assign('PAGE_GROUP_MAIN_PAGE_FIELD', $pag_grp_feild);
+				$pag_grp_t->assign('PAGE_GROUP_MAIN_PAGE_FIELD_TITLE', $cot_extrafields['cot_pages'][$pag_grp_feild]['field_description']);
 				$pag_grp_t->parse('MAIN');
 				$temp_array['PAGE_GROUP_ROTATOR'] = $pag_grp_t->text('MAIN');
 
-				break;			}		}	}
+				break;
+			}
+		}
+	}
 	$pag_grp_marker = false;
 }
