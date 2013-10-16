@@ -11,10 +11,10 @@ $L['info_desc'] = 'Collect page in groups';
  * Plugin Config
  */
 
-$L['cfg_category'] = array('Category codes', 'Comma separated, where need collect page in group. If empty then for all';
+$L['cfg_category'] = array('Category codes', 'Comma separated, where need collect page in group. If empty then for all');
 $L['cfg_extrfldnamegroup'] = array('Name of extra field', 'Page extra field for a page id and group specification for grouped<div id="addextrfd">
-<button type="button">Create the specified extra field</button> If there is an extra field that will fill his the service information. That is, it is recommended to click this button in any case</div>';
-$L['cfg_extrfldnamesforgroup'] = array('Extra fields names', 'Page extra fields names, comma separated, for a collect pages in group by his value';
+<button type="button">Create the specified extra field</button> If there is an extra field that will fill his the service information. That is, it is recommended to click this button in any case</div>');
+$L['cfg_extrfldnamesforgroup'] = array('Extra fields names', 'Page extra fields names, comma separated, for a collect pages in group by his value');
 
 /**
  * Plugin Admin
